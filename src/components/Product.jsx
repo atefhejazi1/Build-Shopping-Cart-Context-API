@@ -1,9 +1,13 @@
+import { useContext } from "react";
 import starImage from "../assets/star.png";
+import { ShoppingCartContext } from "../context/ShoppingCartContext";
 
-function Product({ product, setCartItems }) {
+function Product({ product }) {
+  const { cartItems, setCartItems } = useContext(ShoppingCartContext);
+
   const handleAddToCart = (product) => {
-    setCartItems((prev) => {
-      return [...prev, product];
+    setCartItems(() => {
+      setCartItems([...cartItems, product]);
     });
   };
 

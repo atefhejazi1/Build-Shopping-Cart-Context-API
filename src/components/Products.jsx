@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import Product from "./Product";
+import { ShoppingCartContext } from "../context/ShoppingCartContext";
 
 const demyProducts = [
   {
@@ -22,26 +23,13 @@ const demyProducts = [
   },
 ];
 
-const initialCartItems = localStorage.getItem("cartItems")
-  ? JSON.parse(localStorage.getItem("cartItems"))
-  : [];
-
 function Products() {
-  const [cartItems, setCartItems] = useState(initialCartItems);
+  const { cartItems } = useContext(ShoppingCartContext); // فك القيمة من الكونتكس
 
-  useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  }, [cartItems]);
-
-  
   return (
     <>
       {demyProducts.map((product) => (
-        <Product
-          key={product.id}
-          product={product}
-          setCartItems={setCartItems}
-        />
+        <Product key={product.id} product={product} />
       ))}
 
       <h1>Cart {cartItems.length} </h1>
